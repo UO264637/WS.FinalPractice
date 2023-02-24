@@ -14,8 +14,8 @@
 
 		public List<Ingredient> Ingredients { get; set; }
 
-		public int prepTime { get; set; }
+		public int PrepTime { get; set; }
 
-		public int totalTime { get; set; }
+		public int TotalTime { get; set; }
 	}
 }
