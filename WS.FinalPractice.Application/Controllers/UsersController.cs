@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System.Xml.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using WSClient.UsersWS;
 
 namespace WS.FinalPractice.Application.Controllers

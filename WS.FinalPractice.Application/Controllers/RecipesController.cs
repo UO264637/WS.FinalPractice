@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using WS.FinalPractice.Application.Model;
+using WSClient.ReviewsWS;
 
 namespace WS.FinalPractice.Application.Controllers
 {
@@ -51,7 +52,7 @@ namespace WS.FinalPractice.Application.Controllers
         }
 
 		[HttpGet("{id}")]
-		public async Task<ActionResult<Recipe>> GetRecipes([FromRoute] string id)
+		public async Task<ActionResult<FullRecipe>> GetRecipes([FromRoute] string id)
         {
 			var client = new RestClient(
 				_configuration.GetValue<string>("ApplicationSettings:TastyEndPoint") + "get-more-info");
@@ -67,12 +68,22 @@ namespace WS.FinalPractice.Application.Controllers
 				return BadRequest();
 			
 			var recipeData = JObject.Parse(response.Content);
-			var recipe = new Recipe();
+			FullRecipe fullRecipe = new FullRecipe();
 			if (recipeData != null)
 			{
-                recipe = ParseFullRecipe(recipeData);        
+                fullRecipe.recipe = ParseFullRecipe(recipeData);
+				fullRecipe = await ParseWithReviewDataAsync(fullRecipe);
             }
-			return Ok(recipe);
+			return Ok(fullRecipe);
+		}
+
+		private async Task<FullRecipe> ParseWithReviewDataAsync(FullRecipe fullRecipe)
+		{
+			var reviewsClient = new ReviewsDSClient(ReviewsDSClient.EndpointConfiguration.ReviewsDSPort,
+				_configuration.GetValue<string>("ApplicationSettings:ReviewsEndpoint"));
+			var reviewsResult = await reviewsClient.getReviewsForRecipeAsync(fullRecipe.recipe.Id);
+			fullRecipe.reviews = (reviewsResult.@return != null) ? reviewsResult.@return.ToList() : new List<review>();
+			return fullRecipe;
 		}
 
         private Recipe ParseFullRecipe(JToken recipeData)

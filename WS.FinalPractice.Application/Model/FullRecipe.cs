@@ -4,9 +4,9 @@ namespace WS.FinalPractice.Application.Model
 {
 	public class FullRecipe
 	{
-		private Recipe recipe { get; set; }
+		public Recipe recipe { get; set; }
 
-		private List<review> reviews { get; set; }
+		public List<review> reviews { get; set; }
 
 		public double getAverageRating()
 		{
