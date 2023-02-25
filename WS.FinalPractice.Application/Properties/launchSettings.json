@@ -3,7 +3,7 @@
     "http": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/recipes",
+      "launchUrl": "api/authentication",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
