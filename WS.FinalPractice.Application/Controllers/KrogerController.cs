@@ -85,6 +85,7 @@ namespace WS.FinalPractice.Application.Controllers
 			storesList.Add(new Store { Id = locationId, Chain = chain, Name = name, Address = fullAddress });
 
 			Ingredient ingredient = new Ingredient {
+				Name = ingredientName,
 				Price = double.Parse(productData["items"].Children().First()["price"]["regular"].ToString()),
 				Stores = storesList
 
