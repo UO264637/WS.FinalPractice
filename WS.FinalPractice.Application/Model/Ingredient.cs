@@ -8,6 +8,6 @@
 
 		public double Price { get; set; }
 
-		public List<string> Stores { get; set; }
+		public List<Store> Stores { get; set; }
 	}
 }
