@@ -15,15 +15,17 @@ namespace WS.FinalPractice.Application.Controllers
             this._configuration = configuration;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes()
-        {
-            var client = new RestClient(
-                _configuration.GetValue<string>("ApplicationSettings:TastyEndPoint") + "list");
-            var getRequest = new RestRequest("", Method.Get);
-            getRequest.RequestFormat = DataFormat.Json;
-            getRequest.AddParameter("from", "0", ParameterType.QueryString);
-            getRequest.AddParameter("size", "20", ParameterType.QueryString);
+		[HttpGet]
+		public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes([FromQuery] string searchParameter = "")
+		{
+			var client = new RestClient(
+				_configuration.GetValue<string>("ApplicationSettings:TastyEndPoint") + "list");
+			var getRequest = new RestRequest("", Method.Get);
+			getRequest.RequestFormat = DataFormat.Json;
+			getRequest.AddParameter("from", "0", ParameterType.QueryString);
+			getRequest.AddParameter("size", "20", ParameterType.QueryString);
+			if (searchParameter != "")
+                getRequest.AddParameter("q", searchParameter, ParameterType.QueryString);
 
             getRequest.AddHeader("X-RapidAPI-Key", "fd8cbfe566msh00649ab9da3e67bp11f21ajsna12f9b8f5efb");
             getRequest.AddHeader("X-RapidAPI-Host", "tasty.p.rapidapi.com");
@@ -40,10 +42,7 @@ namespace WS.FinalPractice.Application.Controllers
                 foreach (JToken jToken in recipes)
                 {
                     Recipe recipe = ParseBasicRecipe(jToken);
-
 					recipeList.Add(recipe);
-
-					Console.WriteLine(recipe);
                 }
                 
             }
@@ -51,7 +50,7 @@ namespace WS.FinalPractice.Application.Controllers
         }
 
 		[HttpGet("{id}")]
-		public async Task<ActionResult<Recipe>> GetRecipes([FromRoute] string id)
+		public async Task<ActionResult<Recipe>> GetRecipe([FromRoute] string id)
         {
 			var client = new RestClient(
 				_configuration.GetValue<string>("ApplicationSettings:TastyEndPoint") + "get-more-info");
