@@ -1,0 +1,47 @@
+﻿@model WS.FinalPractice.WebClient.Models.Ingredient
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Search Ingredients</h1>
+
+<div>
+    <form asp-controller="Ingredients" asp-action="Ingredient">
+    <p>
+        <label>Ingredient:</label><br>
+        <input type="text" name="ingredient" required="required"/><br>
+        <label>Zip Code:</label><br>
+        <input type="text" name="zipCode" required="required" placeholder="01400335" minlength="8" maxlength="8" /><br>
+        <input type="submit" value="Search" /><br>
+    </p>
+</form>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price, "Money-dollar")
+        </dd>
+     </dl>
+     <h4>Available in</h4>
+     <dl class="row">
+        @foreach (var store in Model.Stores)
+        {
+            <dt class = "col-sm-4">
+               @store.Name - @store.Chain
+            </dt>
+            <dd class = "col-sm-6">
+                @store.Address
+            </dd>
+        }
+     </dl>
+    
+</div>

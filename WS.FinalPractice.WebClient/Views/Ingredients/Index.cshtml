@@ -1,0 +1,19 @@
+﻿@model WS.FinalPractice.WebClient.Models.Ingredient
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Search Ingredients</h1>
+
+<div>
+    <form asp-controller="Ingredients" asp-action="Ingredient">
+    <p>
+        <label>Ingredient:</label><br>
+        <input type="text" name="ingredient" value="@Model.Name" required="required" /><br>
+        <label>Zip Code:</label><br>
+        <input type="text" name="zipCode" required="required" placeholder="01400335" minlength="8" maxlength="8" /><br>
+        <input type="submit" value="Search" />
+    </p>
+    </form>
+</div>

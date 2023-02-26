@@ -60,7 +60,7 @@ namespace WS.FinalPractice.Application.Controllers
 
 		private bool ValidateToken(string token)
 		{
-			var options = new RestClientOptions("http://localhost:9090/api/authentication"); // ESTA ES LA PARTE QUE NO ME GUSTA, QUE ES UNA REDIRECCIÓN MUY FEA AL CONTROLADOR... y encima va a haber que cambiarla dependiendo de dónde se despliegue
+			var options = new RestClientOptions("http://localhost:9090/api/authentication");
 			options.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
 			var restClient = new RestClient(options);
 			var request = new RestRequest("/{token}", Method.Get);
