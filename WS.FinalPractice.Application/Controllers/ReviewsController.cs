@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 using WSClient.ReviewsWS;
 
 namespace WS.FinalPractice.Application.Controllers
@@ -28,6 +29,9 @@ namespace WS.FinalPractice.Application.Controllers
 		[HttpPost]
 		public async Task<ActionResult<review>> PostReview([FromBody] review review)
 		{
+			var token = Request.Headers["token"];
+			if (String.IsNullOrEmpty(token) || !ValidateToken(token))
+				return Unauthorized();
 			var reviewsClient = new ReviewsDSClient(ReviewsDSClient.EndpointConfiguration.ReviewsDSPort,
 				_configuration.GetValue<string>("ApplicationSettings:ReviewsEndpoint"));
 			var result = await reviewsClient.createRecipeReviewAsync(review.comment, review.author, review.recipeId, review.rating);
@@ -35,13 +39,16 @@ namespace WS.FinalPractice.Application.Controllers
 			{
 				return BadRequest();
 			}
-			return CreatedAtRoute(new { id = result.@return.id }, review);
+			return CreatedAtRoute(new { id = result.@return.id }, result.@return);
 		}
 
 		// DELETE
 		[HttpDelete("{id}")]
 		public async Task<ActionResult<List<review>>> DeleteReview([FromRoute] long id)
 		{
+			var token = Request.Headers["token"];
+			if (String.IsNullOrEmpty(token) || !ValidateToken(token))
+				return Unauthorized();
 			var reviewsClient = new ReviewsDSClient(ReviewsDSClient.EndpointConfiguration.ReviewsDSPort,
 				_configuration.GetValue<string>("ApplicationSettings:ReviewsEndpoint"));
 			var reviewToDelete = await reviewsClient.getReviewByIdAsync(id);
@@ -50,6 +57,17 @@ namespace WS.FinalPractice.Application.Controllers
 			return Ok("Deleted review " + id);
 		}
 
+
+		private bool ValidateToken(string token)
+		{
+			var options = new RestClientOptions("http://localhost:9090/api/authentication"); // ESTA ES LA PARTE QUE NO ME GUSTA, QUE ES UNA REDIRECCIÓN MUY FEA AL CONTROLADOR... y encima va a haber que cambiarla dependiendo de dónde se despliegue
+			options.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+			var restClient = new RestClient(options);
+			var request = new RestRequest("/{token}", Method.Get);
+			request.AddParameter("token", token, ParameterType.UrlSegment);
+			var response = restClient.ExecuteAsync(request).Result;
+			return response.IsSuccessful;
+		}
 
 	}
 }
