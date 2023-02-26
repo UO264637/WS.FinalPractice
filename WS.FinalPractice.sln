@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WS.FinalPractice.Application", "WS.FinalPractice.Application\WS.FinalPractice.Application.csproj", "{18B7C8D8-6404-448B-AF98-10B7CCB6331A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WS.FinalPractice.ConsoleClient", "WS.FinalPractice.ConsoleClient\WS.FinalPractice.ConsoleClient.csproj", "{4366EA70-42D6-4DC5-971D-48BC0B45BB99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WS.FinalPractice.ConsoleClient", "WS.FinalPractice.ConsoleClient\WS.FinalPractice.ConsoleClient.csproj", "{4366EA70-42D6-4DC5-971D-48BC0B45BB99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WS.FinalPractice.WebClient", "WS.FinalPractice.WebClient\WS.FinalPractice.WebClient.csproj", "{009BFF04-900D-47F5-8741-7C0C833945A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{4366EA70-42D6-4DC5-971D-48BC0B45BB99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4366EA70-42D6-4DC5-971D-48BC0B45BB99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4366EA70-42D6-4DC5-971D-48BC0B45BB99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{009BFF04-900D-47F5-8741-7C0C833945A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{009BFF04-900D-47F5-8741-7C0C833945A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{009BFF04-900D-47F5-8741-7C0C833945A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{009BFF04-900D-47F5-8741-7C0C833945A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

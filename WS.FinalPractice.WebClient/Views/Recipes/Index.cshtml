@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Recipe>
+@{
+    ViewData["Title"] = "Recipes";
+}
+<div class="text-center">
+    <h1 class="display-4">Recipes</h1>
+</div>
+<form asp-controller="Recipes" asp-action="Index">
+    <p>
+        <input type="text" name="searchParameter" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>@Html.ActionLink(item.Name, "Recipe", new { id = item.Id })</li>
+    }
+</ul>
+
