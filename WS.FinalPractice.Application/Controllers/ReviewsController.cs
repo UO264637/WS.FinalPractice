@@ -60,7 +60,7 @@ namespace WS.FinalPractice.Application.Controllers
 
 		private bool ValidateToken(string token)
 		{
-			var options = new RestClientOptions("http://localhost:9090/api/authentication");
+			var options = new RestClientOptions(_configuration.GetValue<string>("ApplicationSettings:AppEndpoint"));
 			options.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
 			var restClient = new RestClient(options);
 			var request = new RestRequest("/{token}", Method.Get);

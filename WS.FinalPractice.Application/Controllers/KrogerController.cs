@@ -23,7 +23,7 @@ namespace WS.FinalPractice.Application.Controllers
 			// GET TOKEN FOR SUBSEQUENT REQUESTS
 			var tokenRequest = new RestRequest("connect/oauth2/token", Method.Post);
 			tokenRequest.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-			tokenRequest.AddHeader("Authorization", "Basic dGVzdGFwcHdzdW5pb3ZpMjMtMmU1ODA0MTU4NmU1YWZjMDFmZWNkZWM2NGI3NGQzYmI1NTYyMDg3Mzc3NTc3NjkxMzc4OlNLaHIxWWFRYmc3N3hiMmJzc3I3cHF2eVgyaGtjR0hicGdBUHdITkQ=");
+			tokenRequest.AddHeader("Authorization", "Basic " + _configuration.GetValue<string>("ApplicationSettings:KrogerCredentials"));
 			tokenRequest.AddParameter("application/x-www-form-urlencoded", "grant_type=client_credentials&scope=product.compact", ParameterType.RequestBody);
 			var response = await client.ExecuteAsync(tokenRequest);
 			if (!response.IsSuccessful)

@@ -28,7 +28,7 @@ namespace WS.FinalPractice.Application.Controllers
 			if (searchParameter != "")
                 getRequest.AddParameter("q", searchParameter, ParameterType.QueryString);
 
-            getRequest.AddHeader("X-RapidAPI-Key", "fd8cbfe566msh00649ab9da3e67bp11f21ajsna12f9b8f5efb");
+            getRequest.AddHeader("X-RapidAPI-Key", _configuration.GetValue<string>("ApplicationSettings:TastyAPIKey"));
             getRequest.AddHeader("X-RapidAPI-Host", "tasty.p.rapidapi.com");
 
             var response = await client.ExecuteAsync(getRequest);
