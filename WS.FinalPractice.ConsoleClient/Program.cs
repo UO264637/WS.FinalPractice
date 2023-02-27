@@ -2,7 +2,7 @@
 
 internal class Program
 {
-    private static string SERVICE_URL = "http://156.35.98.70:8080/ws.finalpractice.usersws/soapws/users";
+    private static string SERVICE_URL = "http://156.35.98.69:8090/ws.finalpractice.usersws/soapws/users";
     private static void Main(string[] args)
     {
         UsersWSClient client = new UsersWSClient(
